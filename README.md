@@ -4,11 +4,12 @@
 
 - Simple clock in python.
 
-- Run python clock_desktop.py
+- Run pythonw clock_desktop.py
 
 ## Dependencies:
 
-- pygame
+- pygame Framework
+- pip install pygame
 
 ## License:
 
