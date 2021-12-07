@@ -37,10 +37,10 @@ class ClockDesktop:
         return pygame.font.Font(self.font, randint(8, 18))
 
     # build random chars arrays
-    def random_chars(self):
+    def random_chars(self) -> list:
         return [chr(randint(65, 90)) for _ in range(10)]
 
-    def object_rect(self, w, h):
+    def object_rect(self, w, h) -> list:
         return [pygame.Rect(w, h*x, 0, 0) for x in range(1, 10)]
 
     # format time
@@ -49,7 +49,7 @@ class ClockDesktop:
 
     # format date
     def give_date(self) -> str:
-        return strftime("%A %B %Y")
+        return strftime("%A %d %B %Y")
 
     # build ball
     def make_ball(self):
@@ -59,20 +59,20 @@ class ClockDesktop:
 
     def drawing_objects(self) -> None:
         # font and size to time and date
-        font_time = pygame.font.Font(self.regular_font, 60)
-        font_date = pygame.font.Font(self.regular_font, 25)
-        font_string = pygame.font.Font(self.regular_font, 10)
+        font_time = pygame.font.Font(self.regular_font, 45)
+        font_date = pygame.font.Font(self.regular_font, 20)
+        font_string = pygame.font.Font(self.regular_font, 16)
         self.ball = self.make_ball()
         columns = 9
         array_rect = [self.object_rect(30*x, randint(columns, 20)) for x in range(columns)]
         array_rect1 =[self.object_rect(380 - (i*30), randint(columns, 20)) for i in range(columns)]
         centinel = 0
         while True:
-            speed = 5
+            speed = 4
             d = 0
             # set string
             string_ = font_string.render(
-                "Wake up Neo, follow the white rabbit, knock knock...",
+                "The Matrix has You",
                 True, pygame.Color("#00ff00"))
 
             # set object  time
@@ -84,9 +84,9 @@ class ClockDesktop:
             self.screen.fill(pygame.Color("#000000"))
 
             # put objets to screen
-            self.screen.blit(date_now, (40, 30))
-            self.screen.blit(time_now, (60, 60))
-            self.screen.blit(string_, (50, 180))
+            self.screen.blit(date_now, (50, 30))
+            self.screen.blit(time_now, (80, 60))
+            self.screen.blit(string_, (90, 130))
 
             # put ball to screen
            # pygame.draw.circle(
