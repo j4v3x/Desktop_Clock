@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 
+from argparse import MetavarTypeHelpFormatter
 import pygame
 from time import strftime
 from random import randint
@@ -21,10 +22,10 @@ class ClockDesktop:
         self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGTH))
         pygame.display.set_caption("Tiny Clock Desktop")
         pygame.display.set_icon(pygame.image.load("/Users/j4v13r/Gitrepo/Clock_Desktop/Icons/clock_ico.png"))
-        self.regular_font = "/Users/j4v13r/Gitrepo/Clock_Desktop/Fonts/Knack Regular Nerd Font Complete.ttf"
-        self.font = "/Users/j4v13r/Gitrepo/Clock_Desktop/Fonts/katakana.ttf"
+        self.regular_font = "/Users/J4v13r/GitRepo/Clock_Desktop/Fonts/Knack Regular Nerd Font Complete.ttf"
+        self.font = "/Users/J4v13r/Gitrepo/Clock_Desktop/Fonts/katakana.ttf"
         pygame.font.init()
-        self.array_colors = ["#00ac00", "#00c000", "#00d200","#00e000", "#00ec00", "#00f400","#00ff0e", "#ffffff", "#000000"  ]
+        self.array_colors = ["#00ac00", "#00c000", "#00d200","#00e000", "#50584c", "#00ec00", "#00f400","#00ff0e", "#ffffff", "#808080"  ]
         self.random_chars
         self.font_object
         self.give_time
@@ -32,9 +33,9 @@ class ClockDesktop:
         self.make_ball
         self.drawing_objects
 
-    # set font object size between 8, 18 (digital rain) 
+    # set font object size between 8, 28 (digital rain) 
     def font_object(self):
-        return pygame.font.Font(self.font, randint(8, 18))
+        return pygame.font.Font(self.font, randint(8, 28)) #18
 
     # build random chars arrays
     def random_chars(self):
@@ -61,14 +62,14 @@ class ClockDesktop:
         # font and size to time and date
         font_time = pygame.font.Font(self.regular_font, 60)
         font_date = pygame.font.Font(self.regular_font, 25)
-        font_string = pygame.font.Font(self.regular_font, 10)
+        font_string = pygame.font.Font(self.regular_font, 12)
         self.ball = self.make_ball()
-        columns = 9
-        array_rect = [self.object_rect(30*x, randint(columns, 20)) for x in range(columns)]
-        array_rect1 =[self.object_rect(380 - (i*30), randint(columns, 20)) for i in range(columns)]
+        columns = 10
+        array_rect = [self.object_rect(x*20, randint(columns, 20)) for x in range(columns)]
+        array_rect1 =[self.object_rect(380 - (i*20), randint(columns, 20)) for i in range(columns)]
         centinel = 0
         while True:
-            speed = 5
+            speed = 4
             d = 0
             # set string
             string_ = font_string.render(
@@ -81,12 +82,12 @@ class ClockDesktop:
             )
             # set object date
             date_now = font_date.render(self.give_date(), True, pygame.Color("Green"))
-            self.screen.fill(pygame.Color("#000000"))
+            self.screen.fill(pygame.Color("#001400"))
 
             # put objets to screen
             self.screen.blit(date_now, (40, 30))
             self.screen.blit(time_now, (60, 60))
-            self.screen.blit(string_, (50, 180))
+            self.screen.blit(string_, (20, 180))
 
             # put ball to screen
            # pygame.draw.circle(
@@ -106,13 +107,13 @@ class ClockDesktop:
             #-------------------- efect rain ------------
             [pygame.draw.circle(self.screen, pygame.Color(
                 self.array_colors[5]), array_rect[x][i].center, 0, 0)
-                for x in range(0, len(array_rect)) for i in range(len(array_rect))]
+                for x in range(0, len(array_rect) -1) for i in range(len(array_rect) -1)]
             [pygame.draw.circle(self.screen, pygame.Color(
-                self.array_colors[5]), array_rect1[k][j].center, 0, 0) for k in range(0, len(array_rect1))
-                for j in range(len(array_rect1))]
+                self.array_colors[5]), array_rect1[k][j].center, 0, 0) for k in range(0, len(array_rect1) -1)
+                for j in range(len(array_rect1) -1)]
             for v in range(0, 9):
                 f = self.font_object().render(self.random_chars()[v], True, pygame.Color(self.array_colors[d]))
-                for j in range(8):
+                for j in range(9):
                     self.screen.blit(f , (array_rect[j][v]))# max index j 8
                     self.screen.blit(f , (array_rect1[j][v]))# max index j 8
                 d += 1
